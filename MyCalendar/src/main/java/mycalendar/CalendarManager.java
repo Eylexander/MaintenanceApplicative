@@ -5,30 +5,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CalendarManager {
-    public List<Event> events;
+    public Calendar calendar;
     private final Person owner;
 
     public CalendarManager(Person owner) {
         this.owner = owner;
-        this.events = new ArrayList<>();
+        this.calendar = new Calendar();
     }
 
     public void ajouterEvent(Event e) {
-        events.add(e);
+        calendar.ajouterEvent(e);
     }
 
     public void updateEvent(Event e) {
-        for (int i = 0; i < events.size(); i++) {
-            if (events.get(i).getID() == e.getID()) {
-                events.set(i, e);
-                break;
-            }
-        }
+        calendar.updateEvent(e);
     }
 
     public List<Event> eventsDansPeriode(LocalDateTime debut, LocalDateTime fin) {
         List<Event> result = new ArrayList<>();
-        for (Event e : events) {
+        for (Event e : calendar.getEvents()) {
             if (e instanceof PeriodicEvent) {
                 PeriodicEvent periodicEvent = (PeriodicEvent) e;
                 LocalDateTime temp = periodicEvent.getDateDebut().getDate();
@@ -61,8 +56,14 @@ public class CalendarManager {
     }
 
     public void afficherEvenements() {
-        for (Event e : events) {
-            System.out.println(e.description());
-        }
+        System.out.println(calendar.afficherEvenements());
+    }
+
+    public Person getOwner() {
+        return owner;
+    }
+
+    public Calendar getCalendar() {
+        return calendar;
     }
 }

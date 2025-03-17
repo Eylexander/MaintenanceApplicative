@@ -15,8 +15,9 @@ public class CalendarManagerTest {
         CalendarManager manager = new CalendarManager(owner);
         Event event = new PersonalMeeting(new EventTitle("Dentist"), owner, new EventDate(LocalDateTime.of(2025, 3, 17, 10, 0)), new EventDuration(30));
         manager.ajouterEvent(event);
-        assertEquals(1, manager.events.size());
-        assertEquals("Dentist", manager.events.get(0).getTitle().getTitle());
+        assertEquals(1, manager.calendar.getEvents().size());
+        assertEquals("Dentist", manager.calendar.getEvents().get(0).getTitle().getTitle());
+        assertEquals("RDV : Dentist à 2025-03-17T10:00", manager.calendar.getEvents().get(0).description());
     }
 
     @Test
@@ -25,10 +26,10 @@ public class CalendarManagerTest {
         CalendarManager manager = new CalendarManager(owner);
         Event event = new PersonalMeeting(new EventTitle("Dentist"), owner, new EventDate(LocalDateTime.of(2025, 3, 17, 10, 0)), new EventDuration(30));
         manager.ajouterEvent(event);
-        assertEquals(1, manager.events.size());
-        assertEquals("Dentist", manager.events.get(0).getTitle().getTitle());
-        event.getTitle().setTitle("Doctor");
+        assertEquals(1, manager.calendar.getEvents().size());
+        assertEquals("Dentist", manager.calendar.getEvents().get(0).getTitle().getTitle());
+        event.setTitle(new EventTitle("Doctor"));
         manager.updateEvent(event);
-        assertEquals("Doctor", manager.events.get(0).getTitle().getTitle());
+        assertEquals("Doctor", manager.calendar.getEvents().get(0).getTitle().getTitle());
     }
 }

@@ -38,4 +38,16 @@ public abstract class Event {
     public EventDuration getDuree() {
         return duree;
     }
+
+    public void setTitle(EventTitle title) {
+        this.title = title;
+    }
+
+    public void setDateDebut(EventDate dateDebut) {
+        this.dateDebut = dateDebut;
+    }
+
+    public void setDuree(EventDuration duree) {
+        this.duree = duree;
+    }
 }
