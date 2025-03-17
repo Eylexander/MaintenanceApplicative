@@ -7,7 +7,9 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        CalendarManager calendar = new CalendarManager();
+        Owner roger = new Owner("Roger", "Chat");
+        Owner pierre = new Owner("Pierre", "KiRouhl");
+        CalendarManager calendar = new CalendarManager(roger);
         Scanner scanner = new Scanner(System.in);
         String utilisateur = null;
         boolean continuer = true;

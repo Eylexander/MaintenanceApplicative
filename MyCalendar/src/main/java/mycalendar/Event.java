@@ -2,7 +2,7 @@ package mycalendar;
 import java.time.LocalDateTime;
 
 public class Event {
-    public String type; // "RDV_PERSONNEL", "REUNION", "PERIODIQUE"
+    public EventType type; // "RDV_PERSONNEL", "REUNION", "PERIODIQUE"
     public String title;
     public String proprietaire;
     public LocalDateTime dateDebut;

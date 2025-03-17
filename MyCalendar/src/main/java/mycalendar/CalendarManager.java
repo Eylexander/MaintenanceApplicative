@@ -5,14 +5,14 @@ import java.util.List;
 
 public class CalendarManager {
     public List<Event> events;
+    private final Owner owner;
 
-    public CalendarManager() {
+    public CalendarManager(Owner owner) {
+        this.owner = owner;
         this.events = new ArrayList<>();
     }
 
-    public void ajouterEvent(String type, String title, String proprietaire, LocalDateTime dateDebut, int dureeMinutes,
-                             String lieu, String participants, int frequenceJours) {
-        Event e = new Event(type, title, proprietaire, dateDebut, dureeMinutes, lieu, participants, frequenceJours);
+    public void ajouterEvent(Event e) {
         events.add(e);
     }
 
