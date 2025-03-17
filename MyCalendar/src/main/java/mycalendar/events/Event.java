@@ -17,6 +17,26 @@ public abstract class Event {
         this.duree = duree;
     }
 
+    public boolean isBefore(EventDate date) {
+        return dateDebut.isBefore(date);
+    }
+
+    public boolean isAfter(EventDate date) {
+        return dateDebut.isAfter(date);
+    }
+
+    public boolean isWithinPeriod(EventDate debut, EventDate fin) {
+        return this.isAfter(debut) && this.isBefore(fin);
+    }
+
+    public EventDate getFin() {
+        return new EventDate(dateDebut.getDate().plusMinutes(duree.getDurationMinutes()));
+    }
+
+    public boolean conflictsWith(Event e2) {
+        return this.isWithinPeriod(e2.dateDebut, e2.getFin()) || e2.isWithinPeriod(this.dateDebut, this.getFin());
+    }
+
     public abstract String description();
 
     public EventID getID() {

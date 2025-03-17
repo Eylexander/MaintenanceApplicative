@@ -1,10 +1,15 @@
 package mycalendar;
+
 import mycalendar.events.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import mycalendar.events.Event;
 
 public class CalendarManager {
+
     public Calendar calendar;
     private final Person owner;
 
@@ -21,42 +26,22 @@ public class CalendarManager {
         calendar.updateEvent(e);
     }
 
-    public List<Event> eventsDansPeriode(LocalDateTime debut, LocalDateTime fin) {
-        List<Event> result = new ArrayList<>();
-        for (Event e : calendar.getEvents()) {
-            if (e instanceof PeriodicEvent) {
-                PeriodicEvent periodicEvent = (PeriodicEvent) e;
-                LocalDateTime temp = periodicEvent.getDateDebut().getDate();
-                while (temp.isBefore(fin)) {
-                    if (!temp.isBefore(debut)) {
-                        result.add(e);
-                        break;
-                    }
-                    temp = temp.plusDays(periodicEvent.getFrequency().getFrequencyDays());
-                }
-            } else if (!e.getDateDebut().getDate().isBefore(debut) && !e.getDateDebut().getDate().isAfter(fin)) {
-                result.add(e);
-            }
-        }
-        return result;
-    }
-
-    public boolean conflit(Event e1, Event e2) {
-        LocalDateTime fin1 = e1.getDateDebut().getDate().plusMinutes(e1.getDuree().getDurationMinutes());
-        LocalDateTime fin2 = e2.getDateDebut().getDate().plusMinutes(e2.getDuree().getDurationMinutes());
-
-        if (e1 instanceof PeriodicEvent || e2 instanceof PeriodicEvent) {
-            return false; // Simplification abusive
-        }
-
-        if (e1.getDateDebut().getDate().isBefore(fin2) && fin1.isAfter(e2.getDateDebut().getDate())) {
-            return true;
-        }
-        return false;
+    public void supprimerEvent(Event e) {
+        calendar.supprimerEvent(e);
     }
 
     public void afficherEvenements() {
         System.out.println(calendar.afficherEvenements());
+    }
+
+    public List<Event> eventsDansPeriode(EventDate debut, EventDate fin) {
+        return calendar.getEvents().stream()
+                .filter(e -> e.isWithinPeriod(debut, fin))
+                .collect(Collectors.toList());
+    }
+
+    public boolean conflit(Event e1, Event e2) {
+        return e1.conflictsWith(e2) || e2.conflictsWith(e1);
     }
 
     public Person getOwner() {

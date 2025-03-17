@@ -25,6 +25,15 @@ public class Calendar {
         }
     }
 
+    public void supprimerEvent(Event e) {
+        for (int i = 0; i < events.size(); i++) {
+            if (events.get(i).getID() == e.getID()) {
+                events.remove(i);
+                break;
+            }
+        }
+    }
+
     public String afficherEvenements() {
         StringBuilder sb = new StringBuilder();
         for (Event e : events) {
