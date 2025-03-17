@@ -1,11 +1,16 @@
 package mycalendar;
 
-public class Owner {
+public class Person {
     
     public String firstName;
     public String lastName;
 
-    public Owner(String firstName, String lastName) {
+    public Person(String pseudo) {
+        this.firstName = pseudo;
+        this.lastName = "";
+    }
+
+    public Person(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
     }

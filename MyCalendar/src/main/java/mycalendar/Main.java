@@ -5,10 +5,12 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
+import mycalendar.events.Event;
+
 public class Main {
     public static void main(String[] args) {
-        Owner roger = new Owner("Roger", "Chat");
-        Owner pierre = new Owner("Pierre", "KiRouhl");
+        Person roger = new Person("Roger", "Chat");
+        Person pierre = new Person("Pierre", "KiRouhl");
         CalendarManager calendar = new CalendarManager(roger);
         Scanner scanner = new Scanner(System.in);
         String utilisateur = null;
