@@ -4,8 +4,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import mycalendar.events.Event;
-
 public class CalendarManager {
     public List<Event> events;
     private final Person owner;
@@ -17,6 +15,15 @@ public class CalendarManager {
 
     public void ajouterEvent(Event e) {
         events.add(e);
+    }
+
+    public void updateEvent(Event e) {
+        for (int i = 0; i < events.size(); i++) {
+            if (events.get(i).getID() == e.getID()) {
+                events.set(i, e);
+                break;
+            }
+        }
     }
 
     public List<Event> eventsDansPeriode(LocalDateTime debut, LocalDateTime fin) {

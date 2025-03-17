@@ -1,7 +1,7 @@
 package mycalendar.events;
 
 public class EventTitle {
-    private final String title;
+    private String title;
 
     public EventTitle(String title) {
         this.title = title;
@@ -9,5 +9,9 @@ public class EventTitle {
 
     public String getTitle() {
         return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }
