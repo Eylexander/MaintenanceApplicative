@@ -5,19 +5,19 @@ import java.util.Scanner;
 
 // DON'T TOUCH THIS CLASS. DON'T REFACTOR THIS CLASS.
 // ONLY RUN IT TO MANUALLY PLAY THE GAME YOURSELF TO UNDERSTAND THE PROBLEM
-public class PlayGame {
+public class PlayGameOld {
 
    private static final Scanner scanner = new Scanner(System.in);
 
    public static void main(String[] args) {
 
       System.out.println("*** Welcome to Trivia Game ***\n");
-      System.out.println("Enter number of players: 2-6");
+      System.out.println("Enter number of players: 1-4");
       int playerCount = Integer.parseInt(scanner.nextLine());
-      if (playerCount < 2 || playerCount > 6) throw new IllegalArgumentException("No player 2..6");
+      if (playerCount < 1 || playerCount > 4) throw new IllegalArgumentException("No player 1..4");
       System.out.println("Reading names for " + playerCount + " players:");
 
-      IGame aGame = new Game();
+      IGame aGame = new GameOld();
 
       for (int i = 1; i <= playerCount; i++) {
          System.out.print("Player "+i+" name: ");
@@ -26,6 +26,7 @@ public class PlayGame {
       }
 
       System.out.println("\n\n--Starting game--");
+
 
       boolean notAWinner;
       do {
