@@ -4,8 +4,6 @@ import mycalendar.events.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import mycalendar.events.Event;
-
 public class CalendarManager {
 
     public Calendar calendar;

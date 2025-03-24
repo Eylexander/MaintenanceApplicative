@@ -12,7 +12,7 @@ public class CalendarManagerTest {
 
     @Test
     public void testAjouterEvent() {
-        Person owner = new Person("John", "Doe");
+        Person owner = new Person("John", "password");
         CalendarManager manager = new CalendarManager(owner);
         Event event = new PersonalMeeting(new EventTitle("Dentist"), owner,
                 new EventDate(LocalDateTime.of(2025, 3, 17, 10, 0)), new EventDuration(30));
@@ -24,7 +24,7 @@ public class CalendarManagerTest {
 
     @Test
     public void testModifTitre() {
-        Person owner = new Person("John", "Doe");
+        Person owner = new Person("John", "password");
         CalendarManager manager = new CalendarManager(owner);
         Event event = new PersonalMeeting(new EventTitle("Dentist"), owner,
                 new EventDate(LocalDateTime.of(2025, 3, 17, 10, 0)), new EventDuration(30));
@@ -38,7 +38,7 @@ public class CalendarManagerTest {
 
     @Test
     public void testEventsDansPeriode() {
-        Person owner = new Person("John", "Doe");
+        Person owner = new Person("John", "password");
         CalendarManager manager = new CalendarManager(owner);
         Event event1 = new PersonalMeeting(new EventTitle("Meeting 1"), owner,
                 new EventDate(LocalDateTime.of(2025, 3, 17, 10, 0)), new EventDuration(30));
@@ -59,7 +59,7 @@ public class CalendarManagerTest {
 
     @Test
     public void testConflit() {
-        Person owner = new Person("John", "Doe");
+        Person owner = new Person("John", "password");
         CalendarManager manager = new CalendarManager(owner);
         Event event1 = new PersonalMeeting(new EventTitle("Meeting 1"), owner,
                 new EventDate(LocalDateTime.of(2025, 3, 17, 10, 0)), new EventDuration(30));

@@ -2,25 +2,20 @@ package mycalendar;
 
 public class Person {
     
-    public String firstName;
-    public String lastName;
+    private final String name;
+    private final Authentification authentification;
 
-    public Person(String pseudo) {
-        this.firstName = pseudo;
-        this.lastName = "";
+    public Person(String pseudo, String password) {
+        this.name = pseudo;
+        this.authentification = new Authentification(password);
     }
 
-    public Person(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
-
-    public String fullName() {
-        return firstName + " " + lastName;
+    public boolean checkPassword(String password) {
+        return this.authentification.checkPassword(password);
     }
 
     public String toString() {
-        return fullName();
+        return this.name;
     }
 
 }
