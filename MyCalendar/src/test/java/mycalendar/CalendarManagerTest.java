@@ -53,22 +53,22 @@ public class CalendarManagerTest {
 
 	@Test
 	public void testEventsDansPeriode() {
+		PeriodicEvent periodicEvent = new PeriodicEvent(new EventTitle("Daily Meeting"), owner,
+				new EventDate(LocalDateTime.of(2025, 3, 16, 9, 15)), new EventDuration(30), new EventFrequency(1));
 		Event event1 = new PersonalMeeting(new EventTitle("Meeting 1"), owner,
 				new EventDate(LocalDateTime.of(2025, 3, 17, 10, 0)), new EventDuration(30));
 		Event event2 = new PersonalMeeting(new EventTitle("Meeting 2"), owner,
 				new EventDate(LocalDateTime.of(2025, 3, 18, 10, 0)), new EventDuration(30));
-		PeriodicEvent periodicEvent = new PeriodicEvent(new EventTitle("Weekly Meeting"), owner,
-				new EventDate(LocalDateTime.of(2025, 3, 16, 9, 0)), new EventDuration(60), new EventFrequency(1));
+		manager.ajouterEvent(periodicEvent);
 		manager.ajouterEvent(event1);
 		manager.ajouterEvent(event2);
-		manager.ajouterEvent(periodicEvent);
 
 		List<Event> events = manager.eventsDansPeriode(new EventDate(LocalDateTime.of(2025, 3, 17, 9, 0)),
 				new EventDate(LocalDateTime.of(2025, 3, 17, 11, 0)));
 
 		assertEquals(2, events.size());
 		assertTrue(events.stream().anyMatch(e -> e.getTitle().equals("Meeting 1")));
-		assertTrue(events.stream().anyMatch(e -> e.getTitle().equals("Weekly Meeting")));
+		assertTrue(events.stream().anyMatch(e -> e.getTitle().equals("Daily Meeting")));
 	}
 
 	@Test
@@ -82,5 +82,29 @@ public class CalendarManagerTest {
 
 		assertTrue(manager.conflit(event1, event2));
 		assertFalse(manager.conflit(event1, event3));
+	}
+
+	@Test
+	public void testAddCalendar() {
+		Calendar calendar2 = new Calendar(new CalendarTitle("John's Second Calendar"), owner);
+		manager.addCalendar(calendar2);
+
+		assertEquals(2, manager.getCalendars().size());
+		assertTrue(manager.getCalendars().contains(calendar2));
+
+		manager.setCalendar(calendar);
+		
+		assertEquals(2, manager.getCalendars().size());
+	}
+
+	@Test
+	public void testAddEventConflict() {
+		Event event1 = new PersonalMeeting(new EventTitle("Meeting 1"), owner,
+				new EventDate(LocalDateTime.of(2025, 3, 17, 10, 0)), new EventDuration(30));
+		Event event2 = new PersonalMeeting(new EventTitle("Meeting 2"), owner,
+				new EventDate(LocalDateTime.of(2025, 3, 17, 10, 15)), new EventDuration(30));
+		manager.ajouterEvent(event1);
+
+		assertThrows(IllegalArgumentException.class, () -> manager.ajouterEvent(event2));
 	}
 }

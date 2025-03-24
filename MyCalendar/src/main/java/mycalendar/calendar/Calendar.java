@@ -19,6 +19,11 @@ public class Calendar {
     }
 
     public void ajouterEvent(Event e) {
+        for (Event existingEvent : events) {
+            if (existingEvent.conflictsWith(e)) {
+                throw new IllegalArgumentException("The event conflicts with an existing event.");
+            }
+        }
         events.add(e);
     }
 

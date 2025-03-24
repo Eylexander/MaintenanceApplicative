@@ -5,7 +5,7 @@ import mycalendar.person.Person;
 public class Birthday extends Event {
 
     public Birthday(EventTitle title, Person proprietaire, EventDate dateDebut) {
-        super(title, proprietaire, dateDebut);
+        super(title, proprietaire, dateDebut, new EventDuration(0));
     }
 
     @Override
