@@ -6,12 +6,16 @@ import java.util.Locale;
 import java.util.Scanner;
 
 import mycalendar.events.Event;
+import mycalendar.calendar.Calendar;
+import mycalendar.calendar.CalendarManager;
+import mycalendar.person.Person;
 
 public class Main {
     public static void main(String[] args) {
         Person roger = new Person("Roger", "Chat");
         Person pierre = new Person("Pierre", "KiRouhl");
-        CalendarManager calendar = new CalendarManager(roger);
+        Calendar calendar = new Calendar(roger);
+        CalendarManager calendarManager = new CalendarManager(calendar);
         Scanner scanner = new Scanner(System.in);
         String utilisateur = null;
         boolean continuer = true;

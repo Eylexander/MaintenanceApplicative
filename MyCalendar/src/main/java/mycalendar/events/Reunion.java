@@ -1,6 +1,6 @@
 package mycalendar.events;
 
-import mycalendar.Person;
+import mycalendar.person.Person;
 
 public class Reunion extends Event {
     private EventLocation location;

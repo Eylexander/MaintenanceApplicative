@@ -1,4 +1,4 @@
-package mycalendar;
+package mycalendar.person;
 
 public class Person {
     

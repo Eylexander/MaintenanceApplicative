@@ -1,6 +1,6 @@
 package mycalendar.events;
 
-import mycalendar.Person;
+import mycalendar.person.Person;
 
 public abstract class Event {
     protected static EventID ID_STRING;
@@ -43,8 +43,8 @@ public abstract class Event {
         return ID_STRING;
     }
 
-    public EventTitle getTitle() {
-        return title;
+    public String getTitle() {
+        return title.getTitle();
     }
 
     public Person getProprietaire() {

@@ -2,7 +2,7 @@ package mycalendar.events;
 
 import java.time.temporal.ChronoUnit;
 
-import mycalendar.Person;
+import mycalendar.person.Person;
 
 public class PeriodicEvent extends Event {
     private EventFrequency frequency;
