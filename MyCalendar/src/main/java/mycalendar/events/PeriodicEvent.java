@@ -5,10 +5,13 @@ import java.time.temporal.ChronoUnit;
 import mycalendar.person.Person;
 
 public class PeriodicEvent extends Event {
+    private EventDuration duree;
     private EventFrequency frequency;
 
-    public PeriodicEvent(EventTitle title, Person proprietaire, EventDate dateDebut, EventDuration duree, EventFrequency frequency) {
-        super(title, proprietaire, dateDebut, duree);
+    public PeriodicEvent(EventTitle title, Person proprietaire, EventDate dateDebut, EventDuration duree,
+            EventFrequency frequency) {
+        super(title, proprietaire, dateDebut);
+        this.duree = duree;
         this.frequency = frequency;
     }
 
@@ -27,7 +30,19 @@ public class PeriodicEvent extends Event {
         return false;
     }
 
+    public EventDuration getDuree() {
+        return duree;
+    }
+
     public EventFrequency getFrequency() {
         return frequency;
+    }
+
+    public void setDuree(EventDuration duree) {
+        this.duree = duree;
+    }
+
+    public void setFrequency(EventFrequency frequency) {
+        this.frequency = frequency;
     }
 }

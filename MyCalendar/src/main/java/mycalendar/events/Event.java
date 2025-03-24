@@ -7,14 +7,12 @@ public abstract class Event {
     protected EventTitle title;
     protected Person proprietaire;
     protected EventDate dateDebut;
-    protected EventDuration duree;
 
-    public Event(EventTitle title, Person proprietaire, EventDate dateDebut, EventDuration duree) {
+    public Event(EventTitle title, Person proprietaire, EventDate dateDebut) {
         Event.ID_STRING = new EventID();
         this.title = title;
         this.proprietaire = proprietaire;
         this.dateDebut = dateDebut;
-        this.duree = duree;
     }
 
     public boolean isBefore(EventDate date) {
@@ -55,19 +53,11 @@ public abstract class Event {
         return dateDebut;
     }
 
-    public EventDuration getDuree() {
-        return duree;
-    }
-
     public void setTitle(EventTitle title) {
         this.title = title;
     }
 
     public void setDateDebut(EventDate dateDebut) {
         this.dateDebut = dateDebut;
-    }
-
-    public void setDuree(EventDuration duree) {
-        this.duree = duree;
     }
 }
