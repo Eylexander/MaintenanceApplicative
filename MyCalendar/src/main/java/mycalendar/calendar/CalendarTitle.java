@@ -1,9 +1,13 @@
 package mycalendar.calendar;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class CalendarTitle {
     private String title;
 
-    public CalendarTitle(String title) {
+    @JsonCreator
+    public CalendarTitle(@JsonProperty("title") String title) {
         this.title = title;
     }
 

@@ -1,5 +1,6 @@
 package mycalendar.person;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
@@ -11,7 +12,10 @@ public class Person {
     @JsonUnwrapped
     private final Authentification authentification;
 
-    public Person(String pseudo, String password) {
+    @JsonCreator
+    public Person(
+            @JsonProperty("name") String pseudo,
+            @JsonProperty("password") String password) {
         this.name = pseudo;
         this.authentification = new Authentification(password);
     }
@@ -20,7 +24,7 @@ public class Person {
         return this.authentification.checkPassword(password);
     }
 
-    public String toString() {
+    public String getName() {
         return this.name;
     }
 

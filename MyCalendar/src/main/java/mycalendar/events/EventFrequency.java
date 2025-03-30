@@ -1,13 +1,18 @@
 package mycalendar.events;
 
-public class EventFrequency {
-    private final int frequencyDays;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-    public EventFrequency(int frequencyDays) {
-        this.frequencyDays = frequencyDays;
+public class EventFrequency {
+
+    private final int frequency;
+
+    @JsonCreator
+    public EventFrequency(@JsonProperty("frequency") int frequency) {
+        this.frequency = frequency;
     }
 
-    public int getFrequencyDays() {
-        return frequencyDays;
+    public int getFrequency() {
+        return frequency;
     }
 }

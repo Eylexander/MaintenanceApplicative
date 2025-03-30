@@ -1,7 +1,19 @@
 package mycalendar.events;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import mycalendar.person.Person;
 
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "@type")
+@JsonSubTypes({
+    @JsonSubTypes.Type(value = Birthday.class, name = "Birthday"),
+    @JsonSubTypes.Type(value = PersonalMeeting.class, name = "PersonalMeeting"),
+    @JsonSubTypes.Type(value = Reunion.class, name = "Reunion"),
+    @JsonSubTypes.Type(value = PeriodicEvent.class, name = "PeriodicEvent")
+})
 public abstract class Event {
 
     protected EventID eventID;
@@ -12,6 +24,14 @@ public abstract class Event {
 
     public Event(EventTitle title, Person proprietaire, EventDate dateDebut, EventDuration duree) {
         this.eventID = new EventID();
+        this.title = title;
+        this.proprietaire = proprietaire;
+        this.dateDebut = dateDebut;
+        this.duree = duree;
+    }
+
+    public Event(EventID eventID, EventTitle title, Person proprietaire, EventDate dateDebut, EventDuration duree) {
+        this.eventID = eventID;
         this.title = title;
         this.proprietaire = proprietaire;
         this.dateDebut = dateDebut;
@@ -30,12 +50,12 @@ public abstract class Event {
         return this.isAfter(debut) && this.isBefore(fin);
     }
 
-    public EventDate getFin() {
+    public EventDate whenFin() {
         return new EventDate(dateDebut.getDate().plusMinutes(duree.getDurationMinutes()));
     }
 
     public boolean conflictsWith(Event e2) {
-        return this.isWithinPeriod(e2.dateDebut, e2.getFin()) || e2.isWithinPeriod(this.dateDebut, this.getFin());
+        return this.isWithinPeriod(e2.dateDebut, e2.whenFin()) || e2.isWithinPeriod(this.dateDebut, this.whenFin());
     }
 
     public abstract String description();

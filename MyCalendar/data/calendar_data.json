@@ -3,26 +3,81 @@
     "title" : "John's Calendar"
   },
   "owner" : {
-    "password" : "1216985755",
-    "name" : "John"
+    "name" : "John",
+    "password" : "0"
   },
   "events" : [ {
+    "@type" : "PersonalMeeting",
+    "id" : {
+      "id" : -114901795
+    },
     "title" : "Dentist",
     "proprietaire" : {
-      "password" : "1216985755",
-      "name" : "John"
-    },
-    "duree" : {
-      "durationMinutes" : 30
+      "name" : "John",
+      "password" : "0"
     },
     "dateDebut" : {
       "date" : "2025-03-17T10:00"
     },
+    "duree" : {
+      "durationMinutes" : 30
+    }
+  }, {
+    "@type" : "PeriodicEvent",
     "id" : {
-      "id" : -128352889
+      "id" : 664853081
     },
-    "fin" : {
-      "date" : "2025-03-17T10:30"
+    "title" : "Daily Meeting",
+    "proprietaire" : {
+      "name" : "John",
+      "password" : "1216985755"
+    },
+    "dateDebut" : {
+      "date" : "2025-03-16T06:15"
+    },
+    "duree" : {
+      "durationMinutes" : 30
+    },
+    "frequency" : {
+      "frequency" : 1
+    }
+  }, {
+    "@type" : "Reunion",
+    "id" : {
+      "id" : 412933985
+    },
+    "title" : "Weekly Meeting",
+    "proprietaire" : {
+      "name" : "John",
+      "password" : "1216985755"
+    },
+    "dateDebut" : {
+      "date" : "2025-03-18T10:00"
+    },
+    "duree" : {
+      "durationMinutes" : 30
+    },
+    "location" : {
+      "location" : "Office"
+    },
+    "participants" : {
+      "participants" : [ "Alice", "Bob" ]
+    }
+  }, {
+    "@type" : "Birthday",
+    "id" : {
+      "id" : 1519242044
+    },
+    "title" : "Birthday",
+    "proprietaire" : {
+      "name" : "John",
+      "password" : "1216985755"
+    },
+    "dateDebut" : {
+      "date" : "2025-03-20T10:00"
+    },
+    "duree" : {
+      "durationMinutes" : 0
     }
   } ]
 }

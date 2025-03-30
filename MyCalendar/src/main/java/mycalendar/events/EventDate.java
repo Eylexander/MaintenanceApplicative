@@ -2,14 +2,17 @@ package mycalendar.events;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class EventDate {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm")
     private final LocalDateTime date;
 
-    public EventDate(LocalDateTime date) {
+    @JsonCreator
+    public EventDate(@JsonProperty("date") LocalDateTime date) {
         this.date = date;
     }
 

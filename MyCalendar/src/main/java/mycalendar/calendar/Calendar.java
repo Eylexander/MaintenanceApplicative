@@ -6,6 +6,9 @@ import mycalendar.person.Person;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Calendar {
 
     private CalendarTitle title;
@@ -18,9 +21,19 @@ public class Calendar {
         this.events = new ArrayList<>();
     }
 
+    @JsonCreator
+    public Calendar(
+            @JsonProperty("title") CalendarTitle title,
+            @JsonProperty("owner") Person owner,
+            @JsonProperty("events") List<Event> events) {
+        this.title = title;
+        this.owner = owner;
+        this.events = (events != null) ? new ArrayList<>(events) : new ArrayList<>();
+    }
+
     public void ajouterEvent(Event e) {
         for (Event existingEvent : events) {
-            if (existingEvent.conflictsWith(e)) {
+            if (conflit(existingEvent, e)) {
                 throw new IllegalArgumentException("The event conflicts with an existing event.");
             }
         }

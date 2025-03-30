@@ -10,7 +10,6 @@ import mycalendar.utils.JsonUtils;
 
 public class CalendarManager {
 
-    // private static final String DATA_FILE = "./data/calendar_data.json";
     private static final String DATA_FILE = "./data/calendar_data.json";
 
     private List<Calendar> calendar = new ArrayList<>();
@@ -65,7 +64,10 @@ public class CalendarManager {
 
     public Calendar loadCalendar() {
         try {
-            return JsonUtils.loadFromJsonFile(DATA_FILE, Calendar.class);
+            Calendar calendar = JsonUtils.loadFromJsonFile(DATA_FILE, Calendar.class);
+            this.addCalendar(calendar);
+            this.lastCalendar = calendar;
+            return calendar;
         } catch (IOException e) {
             e.printStackTrace();
             return null;
