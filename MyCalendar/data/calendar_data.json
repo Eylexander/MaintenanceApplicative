@@ -4,32 +4,9 @@
   },
   "owner" : {
     "name" : "John",
-    "password" : "0"
+    "authentification" : {
+      "password" : "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    }
   },
   "events" : [ ]
-}, {
-  "title" : {
-    "title" : "Alec's Calendar"
-  },
-  "owner" : {
-    "name" : "Alec",
-    "password" : "2554"
-  },
-  "events" : [ {
-    "@type" : "Birthday",
-    "id" : {
-      "id" : 934310429
-    },
-    "title" : "Lucie",
-    "proprietaire" : {
-      "name" : "Alec",
-      "password" : "2554"
-    },
-    "dateDebut" : {
-      "date" : "2024-11-04T00:00"
-    },
-    "duree" : {
-      "durationMinutes" : 0
-    }
-  } ]
 } ]

@@ -1,13 +1,11 @@
 [ {
   "name" : "Roger",
-  "password" : "0"
+  "authentification" : {
+    "password" : "460b3a7da007b7af9d35bca54181dc91382263b2bf133ca214871ca1fed1fc1c"
+  }
 }, {
   "name" : "Pierre",
-  "password" : "0"
-}, {
-  "name" : "Alec ",
-  "password" : "0"
-}, {
-  "name" : "Alec",
-  "password" : "2554"
+  "authentification" : {
+    "password" : "a60c530e9205d3ccaa8e93a48a8e895d0a27cfa37d079bad7e1bcc4410f3aa64"
+  }
 } ]
