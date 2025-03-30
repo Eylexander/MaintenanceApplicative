@@ -31,9 +31,9 @@ public class CalendarManagerTest {
 				new EventDate(LocalDateTime.of(2025, 3, 17, 10, 0)), new EventDuration(30));
 		manager.ajouterEvent(event);
 
-		assertEquals(1, manager.getEvents().size());
-		assertEquals("Dentist", manager.getEvents().get(0).getTitle());
-		assertEquals("RDV : Dentist à 2025-03-17T10:00", manager.getEvents().get(0).description());
+		assertEquals(1, manager.getActiveCalendarEvents().size());
+		assertEquals("Dentist", manager.getActiveCalendarEvents().get(0).getTitle());
+		assertEquals("RDV : Dentist à 2025-03-17T10:00", manager.getActiveCalendarEvents().get(0).description());
 	}
 
 	@Test
@@ -42,13 +42,13 @@ public class CalendarManagerTest {
 				new EventDate(LocalDateTime.of(2025, 3, 17, 10, 0)), new EventDuration(30));
 		manager.ajouterEvent(event);
 
-		assertEquals(1, manager.getEvents().size());
-		assertEquals("Dentist", manager.getEvents().get(0).getTitle());
+		assertEquals(1, manager.getActiveCalendarEvents().size());
+		assertEquals("Dentist", manager.getActiveCalendarEvents().get(0).getTitle());
 
 		event.setTitle(new EventTitle("Doctor"));
 		manager.updateEvent(event);
 
-		assertEquals("Doctor", manager.getEvents().get(0).getTitle());
+		assertEquals("Doctor", manager.getActiveCalendarEvents().get(0).getTitle());
 	}
 
 	@Test
@@ -89,12 +89,12 @@ public class CalendarManagerTest {
 		Calendar calendar2 = new Calendar(new CalendarTitle("John's Second Calendar"), owner);
 		manager.addCalendar(calendar2);
 
-		assertEquals(2, manager.getCalendars().size());
-		assertTrue(manager.getCalendars().contains(calendar2));
+		assertEquals(2, manager.getAllCalendars().size());
+		assertTrue(manager.getAllCalendars().contains(calendar2));
 
-		manager.setCalendar(calendar);
+		manager.setActiveCalendar(calendar);
 		
-		assertEquals(2, manager.getCalendars().size());
+		assertEquals(2, manager.getAllCalendars().size());
 	}
 
 	@Test
@@ -113,13 +113,13 @@ public class CalendarManagerTest {
 		Calendar calendar2 = new Calendar(new CalendarTitle("John's Second Calendar"), owner);
 		manager.addCalendar(calendar2);
 
-		assertEquals(2, manager.getCalendars().size());
-		assertTrue(manager.getCalendars().contains(calendar2));
+		assertEquals(2, manager.getAllCalendars().size());
+		assertTrue(manager.getAllCalendars().contains(calendar2));
 
 		manager.removeCalendar(calendar2);
 
-		assertEquals(1, manager.getCalendars().size());
-		assertFalse(manager.getCalendars().contains(calendar2));
+		assertEquals(1, manager.getAllCalendars().size());
+		assertFalse(manager.getAllCalendars().contains(calendar2));
 	}
 
 	@Test
@@ -128,9 +128,11 @@ public class CalendarManagerTest {
 				new EventDate(LocalDateTime.of(2025, 3, 17, 10, 0)), new EventDuration(30));
 		manager.ajouterEvent(event);
 
-		manager.saveCalendar(calendar);
+		manager.saveCalendars();
 
-		Calendar loadedCalendar = manager.loadCalendar();
+		manager.loadCalendars();
+
+		Calendar loadedCalendar = manager.getActiveCalendar();
 
 		assertEquals(calendar.getTitle().getTitle(), loadedCalendar.getTitle().getTitle());
 		assertEquals(calendar.getOwner().getName(), loadedCalendar.getOwner().getName());
@@ -151,10 +153,12 @@ public class CalendarManagerTest {
 				new EventDate(LocalDateTime.of(2025, 3, 20, 10, 0)));
 		manager.ajouterEvent(birthdayEvent);
 
-		manager.saveCalendar(loadedCalendar);
+		manager.saveCalendars();
 
-		Calendar loadedCalendar2 = manager.loadCalendar();
+		manager.loadCalendars();
 
+		Calendar loadedCalendar2 = manager.getActiveCalendar();
+		
 		assertEquals(loadedCalendar.getTitle().getTitle(), loadedCalendar2.getTitle().getTitle());
 		assertEquals(loadedCalendar.getOwner().getName(), loadedCalendar2.getOwner().getName());
 
@@ -172,5 +176,55 @@ public class CalendarManagerTest {
 		assertEquals(birthdayEvent.getTitle(), loadedCalendar2.getEvents().get(3).getTitle());
 		assertEquals(birthdayEvent.getID().getID(), loadedCalendar2.getEvents().get(3).getID().getID());
 		
+	}
+
+	@Test
+	public void testSaveMultipleCalendars() {
+		Calendar calendar2 = new Calendar(new CalendarTitle("John's Second Calendar"), owner);
+		Calendar calendar3 = new Calendar(new CalendarTitle("John's Third Calendar"), owner);
+
+		manager.addCalendar(calendar2);
+		manager.addCalendar(calendar3);
+
+		Event event1 = new PersonalMeeting(new EventTitle("Meeting 1"), owner,
+				new EventDate(LocalDateTime.of(2025, 3, 17, 10, 0)), new EventDuration(30));
+		Event event2 = new PersonalMeeting(new EventTitle("Meeting 2"), owner,
+				new EventDate(LocalDateTime.of(2025, 3, 18, 10, 0)), new EventDuration(30));
+
+		manager.setActiveCalendar(calendar2);
+		manager.ajouterEvent(event1);
+
+		manager.setActiveCalendar(calendar3);
+		manager.ajouterEvent(event2);
+
+		manager.saveCalendars();
+
+		manager.loadCalendars();
+
+		List<Calendar> loadedCalendars = manager.getAllCalendars();
+
+		assertEquals(3, loadedCalendars.size());
+		assertTrue(loadedCalendars.stream().anyMatch(c -> c.getTitle().getTitle().equals("John's Calendar")));
+		assertTrue(loadedCalendars.stream().anyMatch(c -> c.getTitle().getTitle().equals("John's Second Calendar")));
+		assertTrue(loadedCalendars.stream().anyMatch(c -> c.getTitle().getTitle().equals("John's Third Calendar")));
+
+		Calendar loadedCalendar2 = loadedCalendars.stream()
+				.filter(c -> c.getTitle().getTitle().equals("John's Second Calendar"))
+				.findFirst()
+				.orElse(null);
+
+		Calendar loadedCalendar3 = loadedCalendars.stream()
+				.filter(c -> c.getTitle().getTitle().equals("John's Third Calendar"))
+				.findFirst()
+				.orElse(null);
+
+		assertNotNull(loadedCalendar2);
+		assertNotNull(loadedCalendar3);
+
+		assertEquals(1, loadedCalendar2.getEvents().size());
+		assertEquals("Meeting 1", loadedCalendar2.getEvents().get(0).getTitle());
+
+		assertEquals(1, loadedCalendar3.getEvents().size());
+		assertEquals("Meeting 2", loadedCalendar3.getEvents().get(0).getTitle());
 	}
 }
