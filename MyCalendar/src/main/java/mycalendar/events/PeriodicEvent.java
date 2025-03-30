@@ -5,6 +5,7 @@ import java.time.temporal.ChronoUnit;
 import mycalendar.person.Person;
 
 public class PeriodicEvent extends Event {
+    
     private EventFrequency frequency;
 
     public PeriodicEvent(EventTitle title, Person proprietaire, EventDate dateDebut, EventDuration duree,

@@ -1,11 +1,17 @@
 package mycalendar.calendar;
 
-import mycalendar.events.*;
-
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import mycalendar.events.Event;
+import mycalendar.events.EventDate;
+import mycalendar.utils.JsonUtils;
+
 public class CalendarManager {
+
+    // private static final String DATA_FILE = "./data/calendar_data.json";
+    private static final String DATA_FILE = "./data/calendar_data.json";
 
     private List<Calendar> calendar = new ArrayList<>();
     private Calendar lastCalendar;
@@ -42,6 +48,27 @@ public class CalendarManager {
     public void addCalendar(Calendar calendar) {
         if (!this.calendar.contains(calendar)) {
             this.calendar.add(calendar);
+        }
+    }
+
+    public void removeCalendar(Calendar calendar) {
+        this.calendar.remove(calendar);
+    }
+
+    public void saveCalendar(Calendar calendar) {
+        try {
+            JsonUtils.saveToJsonFile(calendar, DATA_FILE);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Calendar loadCalendar() {
+        try {
+            return JsonUtils.loadFromJsonFile(DATA_FILE, Calendar.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 

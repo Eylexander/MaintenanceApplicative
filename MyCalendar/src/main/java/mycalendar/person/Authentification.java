@@ -1,7 +1,10 @@
 package mycalendar.person;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Authentification {
     
+    @JsonProperty("password")
     private final String passwordString;
 
     public Authentification(String passwordString) {

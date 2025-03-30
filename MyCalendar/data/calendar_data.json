@@ -1,0 +1,28 @@
+{
+  "title" : {
+    "title" : "John's Calendar"
+  },
+  "owner" : {
+    "password" : "1216985755",
+    "name" : "John"
+  },
+  "events" : [ {
+    "title" : "Dentist",
+    "proprietaire" : {
+      "password" : "1216985755",
+      "name" : "John"
+    },
+    "duree" : {
+      "durationMinutes" : 30
+    },
+    "dateDebut" : {
+      "date" : "2025-03-17T10:00"
+    },
+    "id" : {
+      "id" : -128352889
+    },
+    "fin" : {
+      "date" : "2025-03-17T10:30"
+    }
+  } ]
+}

@@ -1,8 +1,14 @@
 package mycalendar.person;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+
 public class Person {
     
+    @JsonProperty("name")
     private final String name;
+
+    @JsonUnwrapped
     private final Authentification authentification;
 
     public Person(String pseudo, String password) {

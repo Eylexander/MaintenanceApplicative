@@ -107,4 +107,33 @@ public class CalendarManagerTest {
 
 		assertThrows(IllegalArgumentException.class, () -> manager.ajouterEvent(event2));
 	}
+
+	@Test
+	public void testRemoveCalendar() {
+		Calendar calendar2 = new Calendar(new CalendarTitle("John's Second Calendar"), owner);
+		manager.addCalendar(calendar2);
+
+		assertEquals(2, manager.getCalendars().size());
+		assertTrue(manager.getCalendars().contains(calendar2));
+
+		manager.removeCalendar(calendar2);
+
+		assertEquals(1, manager.getCalendars().size());
+		assertFalse(manager.getCalendars().contains(calendar2));
+	}
+
+	@Test
+	public void testSaveCalendar() {
+		Event event = new PersonalMeeting(new EventTitle("Dentist"), owner,
+				new EventDate(LocalDateTime.of(2025, 3, 17, 10, 0)), new EventDuration(30));
+		manager.ajouterEvent(event);
+
+		manager.saveCalendar(calendar);
+
+		Calendar loadedCalendar = manager.loadCalendar();
+
+		assertEquals(calendar.getTitle(), loadedCalendar.getTitle());
+		assertEquals(calendar.getOwner(), loadedCalendar.getOwner());
+		assertEquals(calendar.getEvents().size(), loadedCalendar.getEvents().size());
+	}
 }
